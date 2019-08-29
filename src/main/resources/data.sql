@@ -1,2 +1,35 @@
-insert into product values(101,'Monitor-01')
-insert into product values(102,'Monitor-02')
+insert into question  values(1,'What monitor type you want?')
+insert into question  values(2,'What screen type you want?')
+insert into question values(3,'What screen type you want?')
+insert into question values(4,'What screen type you want?')
+insert into question values(5,'What screen size you want?')
+insert into question  values(6,'What monitor size you want?')
+insert into question values(7,'What monitor size you want?')
+insert into question values(8,'What monitor size you want?')
+insert into question values(9,'What monitor size you want?')
+
+
+insert into options(option_id,link_id,option_name,product_name,question_id) values(1,2,'Modular',null,1)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(2,3,'Semi-Modular',null,1)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(3,4,'Pre-Configured',null,1)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(4,5,'Touchscreen',null,2)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(5,6,'Non Touchscreen',null,2)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(6,7,'Touchscreen',null,3)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(7,8,'Non Touchscreen',null,3)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(8,9,'Touchscreen',null,4)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(9,0,'9','IntelliVue MX400',5)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(10,0,'12','IntelliVue MX450,IntelliVue MX500',5)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(11,0,'15','IntelliVue MX550',5)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(12,0,'15','IntelliVue MX600,IntelliVue MX700',6)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(13,0,'19','IntelliVue MX800',6)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(14,0,'10','Efficia CM10',7)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(15,0,'12','Efficia CM12',7)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(16,0,'10','Efficia CM100',8)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(17,0,'12','Efficia CM120',8)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(18,0,'15','Efficia CM150',8)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(19,0,'10.4','Goldway G30E',9)
+insert into options(option_id,link_id,option_name,product_name,question_id) values(20,0,'12.1','Goldway G40E',9)
+
+
+
+

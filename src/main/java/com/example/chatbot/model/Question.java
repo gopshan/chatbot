@@ -9,23 +9,23 @@ import java.util.List;
 
 @Getter @Setter @ToString
 @Entity
-public class Product {
+public class Question {
 
     @Id
     @GeneratedValue
     private Integer id;
-    private String productName;
+    private String questionName;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "question")
     private List<Options> options;
 
-    protected Product() {
+    protected Question() {
 
     }
 
-    public Product(int id, String productName) {
+    public Question(int id, String questionName) {
         this.id = id;
-        this.productName = productName;
+        this.questionName = questionName;
     }
 
 }

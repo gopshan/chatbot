@@ -14,10 +14,15 @@ public class Options {
     @Id
     @GeneratedValue
     private int option_id;
-    private String question;
+    private String optionName;
 
     @Getter(AccessLevel.NONE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    private Product product;
+    private Question question;
+
+    private int linkId;
+
+    private String productName;
+
 }
