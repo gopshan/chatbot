@@ -33,9 +33,7 @@ public class QuestionController {
 
     @GetMapping("/question/{id}")
     public ResponseEntity<Optional<Question>> findOneQuestion(@PathVariable int id) {
-        if(id==1){
-            flag=true;
-        }
+
         return new ResponseEntity<Optional<Question>>(questionRepository.findById(id),HttpStatus.OK);
     }
 
@@ -43,18 +41,13 @@ public class QuestionController {
     public ResponseEntity<Optional<Question>> findNextQuestion1(@PathVariable int qid,@PathVariable String oid) {
           boolean validOpt=questionService.validateOption(qid,oid);
           if (validOpt) {
-              int optionId=optionRepository.findOptionId(oid,qid);
-             /* optionalModules[1]=optionId;*/
               int nextQuestion =optionRepository.find(oid,qid);
               if (nextQuestion != 0) {
                   return new ResponseEntity<Optional<Question>>(questionRepository.findById(nextQuestion), HttpStatus.OK);
               }
               else{
-                  if (flag){
                   return new ResponseEntity<Optional<Question>>(HttpStatus.FOUND);
-                  }else{
-                      return new ResponseEntity<Optional<Question>>(HttpStatus.NOT_FOUND);
-                  }
+
               }
           }
        else{
@@ -109,9 +102,6 @@ public class QuestionController {
         }
 
     }
-
-
-
     @PostMapping("/add/question")
     public ResponseEntity<Object> createQuestion(@Valid @RequestBody Question question) {
         Question savedQuestion = questionRepository.save(question);
