@@ -36,7 +36,7 @@ public class QuestionService {
                    return true;
        }catch (Exception e){
 
-           System.out.println("wrongggg");
+           System.out.println("Invalid Input");
        }
 
         return false;
@@ -54,4 +54,6 @@ public class QuestionService {
        return linkId;
 
     }
+
+
 }

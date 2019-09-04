@@ -14,9 +14,6 @@ import java.util.Optional;
 @RestController
 public class QuestionController {
 
-  private  static boolean flag=false;
-  private static String optionalModules[];
-
     @Autowired
     private QuestionRepository questionRepository;
 
@@ -32,28 +29,21 @@ public class QuestionController {
     }
 
     @GetMapping("/question/{id}")
-    public ResponseEntity<Optional<Question>> findOne(@PathVariable int id) {
-        if(id==1){
-            flag=true;
-        }
+    public ResponseEntity<Optional<Question>> findOneQuestion(@PathVariable int id) {
+
         return new ResponseEntity<Optional<Question>>(questionRepository.findById(id),HttpStatus.OK);
     }
 
     @GetMapping("/question/{qid}/{oid}")
-    public ResponseEntity<Optional<Question>> findNextQuestion(@PathVariable int qid,@PathVariable String oid) {
+    public ResponseEntity<Optional<Question>> findNextQuestion1(@PathVariable int qid,@PathVariable String oid) {
           boolean validOpt=questionService.validateOption(qid,oid);
           if (validOpt) {
-              int choice = Integer.parseInt(oid);
               int nextQuestion =optionRepository.find(oid,qid);
               if (nextQuestion != 0) {
                   return new ResponseEntity<Optional<Question>>(questionRepository.findById(nextQuestion), HttpStatus.OK);
               }
               else{
-                  if (flag){
                   return new ResponseEntity<Optional<Question>>(HttpStatus.FOUND);
-                  }else{
-                      return new ResponseEntity<Optional<Question>>(HttpStatus.BAD_REQUEST);
-                  }
               }
           }
        else{
@@ -62,17 +52,48 @@ public class QuestionController {
 
     }
 
+    @GetMapping("/question/{qid}/{oid1}/{oid2}")
+    public ResponseEntity<Optional<Question>> findNextQuestion2(@PathVariable int qid,@PathVariable String oid1,@PathVariable String oid2) {
+        int nextQuestion1 =optionRepository.find(oid1,qid);
+        boolean validOpt=questionService.validateOption(nextQuestion1,oid2);
+        if (validOpt) {
+            int nextQuestion2 =optionRepository.find(oid2,nextQuestion1);
+            if (nextQuestion2 != 0) {
+                return new ResponseEntity<Optional<Question>>(questionRepository.findById(nextQuestion2), HttpStatus.OK);
+            }
+            else{
 
-    @PostMapping("/test/questions")
+                    return new ResponseEntity<Optional<Question>>(HttpStatus.FOUND);
+            }
+        }
+        else{
+            return new ResponseEntity<Optional<Question>>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @GetMapping("/question/{qid}/{oid1}/{oid2}/{oid3}")
+    public ResponseEntity<String> findMonitorName(@PathVariable int qid,@PathVariable String oid1,@PathVariable String oid2,@PathVariable String oid3) {
+       int nextQuestion1 =optionRepository.find(oid1,qid);
+       int nextQuestion2=optionRepository.find(oid2,nextQuestion1);
+        boolean validOpt=questionService.validateOption(nextQuestion2,oid3);
+        if (validOpt) {
+                    String str=optionRepository.findMonitor(oid3,nextQuestion2);
+                    return new ResponseEntity<String>(optionRepository.findMonitor(oid3,nextQuestion2),HttpStatus.NOT_FOUND);
+            }
+        else{
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @PostMapping("/add/question")
     public ResponseEntity<Object> createQuestion(@Valid @RequestBody Question question) {
         Question savedQuestion = questionRepository.save(question);
-
         // Return the current request URL
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}") //appending id to the URL
                 .buildAndExpand(savedQuestion.getId()) // expand the URI
                 .toUri();
-
         return ResponseEntity.created(location).build();
     }
 }
