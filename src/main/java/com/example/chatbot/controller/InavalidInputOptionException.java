@@ -10,5 +10,4 @@ public class InavalidInputOptionException extends RuntimeException{
     public InavalidInputOptionException(String s) {
     }
 
-
 }

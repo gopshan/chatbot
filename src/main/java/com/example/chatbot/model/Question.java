@@ -8,7 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
-@Getter @Setter @ToString
+@ToString
 @Entity
 public class Question {
 
@@ -28,8 +28,6 @@ public class Question {
         this.options = options;
     }*/
 
-
-
     protected Question() {
 
     }
@@ -39,4 +37,27 @@ public class Question {
         this.questionName = questionName;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getQuestionName() {
+        return questionName;
+    }
+
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName;
+    }
+
+    public List<Options> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Options> options) {
+        this.options = options;
+    }
 }
