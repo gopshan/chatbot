@@ -15,7 +15,6 @@ public class Options {
     @GeneratedValue
     private int option_id;
 
-
     public String getOption_no() {
         return option_no;
     }
@@ -59,5 +58,25 @@ public class Options {
     @JsonIgnore
     public String getProductName() {
         return productName;
+    }
+
+    public void setOption_id(int option_id) {
+        this.option_id = option_id;
+    }
+
+    public void setOptionName(String optionName) {
+        this.optionName = optionName;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void setLinkId(int linkId) {
+        this.linkId = linkId;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

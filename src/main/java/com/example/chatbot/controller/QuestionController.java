@@ -14,16 +14,22 @@ import java.util.Optional;
 @RestController
 public class QuestionController {
 
-  private  boolean flag=false;
-  private int optionalModules[]=new int[3];
-
     @Autowired
     private QuestionRepository questionRepository;
 
+    public void setDAO(QuestionRepository qr){
+        questionRepository = qr;
+    }
+
     @Autowired
     private OptionRepository optionRepository;
+
+    public void setOptionRepository(OptionRepository or) { optionRepository = or; }
+
     @Autowired
     QuestionService questionService;
+
+    public void setQuestionService(QuestionService qs) { questionService = qs; }
 
     @GetMapping("/question")
     public ResponseEntity<List<Question>> getAllQuestions() {
@@ -41,13 +47,12 @@ public class QuestionController {
     public ResponseEntity<Optional<Question>> findNextQuestion1(@PathVariable int qid,@PathVariable String oid) {
           boolean validOpt=questionService.validateOption(qid,oid);
           if (validOpt) {
-              int nextQuestion =optionRepository.find(oid,qid);
+              int nextQuestion = optionRepository.find(oid,qid);
               if (nextQuestion != 0) {
                   return new ResponseEntity<Optional<Question>>(questionRepository.findById(nextQuestion), HttpStatus.OK);
               }
               else{
                   return new ResponseEntity<Optional<Question>>(HttpStatus.FOUND);
-
               }
           }
        else{
@@ -61,18 +66,13 @@ public class QuestionController {
         int nextQuestion1 =optionRepository.find(oid1,qid);
         boolean validOpt=questionService.validateOption(nextQuestion1,oid2);
         if (validOpt) {
-            int optionId=optionRepository.findOptionId(oid2,nextQuestion1);
-          /*  optionalModules[2]=optionId;*/
             int nextQuestion2 =optionRepository.find(oid2,nextQuestion1);
             if (nextQuestion2 != 0) {
                 return new ResponseEntity<Optional<Question>>(questionRepository.findById(nextQuestion2), HttpStatus.OK);
             }
             else{
-                if (flag){
+
                     return new ResponseEntity<Optional<Question>>(HttpStatus.FOUND);
-                }else{
-                    return new ResponseEntity<Optional<Question>>(HttpStatus.NOT_FOUND);
-                }
             }
         }
         else{
@@ -87,31 +87,22 @@ public class QuestionController {
        int nextQuestion2=optionRepository.find(oid2,nextQuestion1);
         boolean validOpt=questionService.validateOption(nextQuestion2,oid3);
         if (validOpt) {
-            int optionId=optionRepository.findOptionId(oid3,nextQuestion2);
-            /*optionalModules[3]=optionId;*/
-                if (flag){
                     String str=optionRepository.findMonitor(oid3,nextQuestion2);
-                    return new ResponseEntity<String>(optionRepository.findMonitor(oid3,nextQuestion2),HttpStatus.NOT_FOUND);
-
-                }else{
-                    return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-                }
+                    return new ResponseEntity<>(optionRepository.findMonitor(oid3,nextQuestion2),HttpStatus.NOT_FOUND);
             }
         else{
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }
     @PostMapping("/add/question")
     public ResponseEntity<Object> createQuestion(@Valid @RequestBody Question question) {
         Question savedQuestion = questionRepository.save(question);
-
         // Return the current request URL
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}") //appending id to the URL
                 .buildAndExpand(savedQuestion.getId()) // expand the URI
                 .toUri();
-
         return ResponseEntity.created(location).build();
     }
 }

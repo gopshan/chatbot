@@ -22,11 +22,11 @@ public class Question {
 
    /* public List<Options> getOptions() {
         return options;
-    }
+    }*/
 
     public void setOptions(List<Options> options) {
         this.options = options;
-    }*/
+    }
 
 
 
@@ -39,4 +39,11 @@ public class Question {
         this.questionName = questionName;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public List<Options> getOptions() {
+        return options;
+    }
 }

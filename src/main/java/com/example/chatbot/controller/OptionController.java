@@ -18,7 +18,7 @@ import java.net.*;
 import java.util.List;
 import java.util.Optional;
 
-
+@RestController
 public class OptionController {
 
     @Autowired
@@ -30,9 +30,7 @@ public class OptionController {
     @GetMapping("/options")
     public List<Options> getAllOptions() {
         return optionRepository.findAll();
-
     }
-
 
     @PostMapping("/add/option")
     public ResponseEntity<Object> createOption(@Valid @RequestBody Options option) {
@@ -46,15 +44,4 @@ public class OptionController {
 
         return ResponseEntity.created(location).build();
     }
-
-    @GetMapping("/questions/{id1}/{id2}")
-    public void findOneQuestion(@PathVariable int id1, @PathVariable String id2) {
-     System.out.println("fsdfsffds");
-     final String uri = "http://localhost:9090/question/5";
-
-     RestTemplate restTemplate = new RestTemplate();
-     String result = restTemplate.getForObject(uri, String.class);
-
-    }
-
 }
