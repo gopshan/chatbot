@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "questionName": "What monitor type you want?",
+    "options": [
+      {
+        "option_no": "1",
+        "optionName": "Press 1 for Modular"
+      },
+      {
+        "option_no": "2",
+        "optionName": "Press 2 for Semi-Modular"
+      },
+      {
+        "option_no": "3",
+        "optionName": "Press 3 for Pre-Configured"
+      }
+    ]
+  }
+
+]
